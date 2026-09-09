@@ -12,6 +12,11 @@ use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\User\POSController;
 use App\Http\Controllers\User\PaymentController;
 
+/*
+|--------------------------------------------------------------------------
+| API Routes
+|--------------------------------------------------------------------------
+*/
 
 // Public Auth Route
 Route::post('/login', [AuthController::class, 'login']);
@@ -24,6 +29,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
+
+    // POS Direct Routes (React frontend base URL matching: /api/pos/data)
+    Route::get('/pos/data', [POSController::class, 'getPOSData']);
+    Route::post('/pos/checkout', [POSController::class, 'checkout']);
 
     // Admin Routes
     Route::middleware('role:admin')->prefix('admin')->group(function () {
@@ -41,7 +50,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/sales', [SaleController::class, 'store']);
         Route::get('/sales/{id}', [SaleController::class, 'show']);
 
-        // Reports Routes (Reports Component එක සඳහා)
+        // Reports Routes
         Route::get('/reports', [ReportController::class, 'index']);
 
         // User Management Routes
@@ -51,13 +60,10 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/users/{id}', [UserController::class, 'destroy']);
     });
 
-    // Cashier / User Routes
+    // Cashier / User Extra Routes
     Route::middleware('role:cashier,admin')->prefix('user')->group(function () {
         Route::get('/pos/products', [POSController::class, 'getProducts']);
         Route::post('/payment', [PaymentController::class, 'processPayment']);
-
-        Route::get('/pos/data', [POSController::class, 'getPOSData']);
-        Route::post('/pos/checkout', [POSController::class, 'checkout']);
     });
 
 });

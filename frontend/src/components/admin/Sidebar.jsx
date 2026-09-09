@@ -38,14 +38,14 @@ const Sidebar = () => {
     return (
         <>
             {/* Mobile Top Header Bar */}
-            <div className="md:hidden bg-slate-900 text-slate-300 p-4 flex items-center justify-between border-b border-slate-800 sticky top-0 z-40 shrink-0">
+            <div className="md:hidden bg-slate-900 text-slate-300 p-4 flex items-center justify-between border-b border-slate-800 sticky top-0 z-40 w-full shrink-0">
                 <div className="flex items-center gap-3">
                     <div className="p-1.5 bg-blue-600 text-white rounded-lg">
                         <Store size={18} />
                     </div>
                     <span className="font-bold text-white text-base">Smart POS</span>
                 </div>
-                <button onClick={toggleSidebar} className="p-2 text-slate-300 hover:text-white">
+                <button onClick={toggleSidebar} className="p-2 text-slate-300 hover:text-white focus:outline-none">
                     {isOpen ? <X size={24} /> : <Menu size={24} />}
                 </button>
             </div>
@@ -53,27 +53,32 @@ const Sidebar = () => {
             {/* Mobile Backdrop Overlay */}
             {isOpen && (
                 <div 
-                    className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-40 md:hidden"
+                    className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-40 md:hidden transition-opacity"
                     onClick={() => setIsOpen(false)}
                 />
             )}
 
-            {/* Sidebar Container */}
+            {/* Sidebar Drawer */}
             <aside className={`
-                fixed md:relative inset-y-0 left-0 z-50 h-full w-64 shrink-0 bg-slate-900 text-slate-300 flex flex-col justify-between p-4 border-r border-slate-800 select-none transition-transform duration-300 ease-in-out
+                fixed md:sticky top-0 left-0 z-50 h-screen w-64 bg-slate-900 text-slate-300 flex flex-col justify-between p-4 border-r border-slate-800 select-none transition-transform duration-300 ease-in-out shrink-0
                 ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
             `}>
-                <div className="flex flex-col h-full justify-between">
+                <div className="flex flex-col h-full justify-between overflow-y-auto">
                     <div>
                         {/* Brand Logo Header */}
-                        <div className="flex items-center gap-3 px-3 py-4 mb-6 border-b border-slate-800">
-                            <div className="p-2 bg-blue-600 text-white rounded-xl shadow-md shadow-blue-500/20 shrink-0">
-                                <Store size={22} />
+                        <div className="flex items-center justify-between px-3 py-4 mb-6 border-b border-slate-800">
+                            <div className="flex items-center gap-3">
+                                <div className="p-2 bg-blue-600 text-white rounded-xl shadow-md shadow-blue-500/20 shrink-0">
+                                    <Store size={22} />
+                                </div>
+                                <div>
+                                    <h1 className="text-lg font-bold text-white tracking-wide leading-none">Smart POS</h1>
+                                    <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest">Admin Panel</span>
+                                </div>
                             </div>
-                            <div>
-                                <h1 className="text-lg font-bold text-white tracking-wide leading-none">Smart POS</h1>
-                                <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest">Admin Panel</span>
-                            </div>
+                            <button onClick={() => setIsOpen(false)} className="md:hidden text-slate-400 hover:text-white">
+                                <X size={20} />
+                            </button>
                         </div>
 
                         {/* Navigation Items */}

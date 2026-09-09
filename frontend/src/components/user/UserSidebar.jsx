@@ -15,7 +15,7 @@ const UserSidebar = ({ activeTab, setActiveTab, onLogout }) => {
     return (
         <>
             {/* Mobile Top Header Bar */}
-            <div className="md:hidden bg-slate-900 text-white p-4 flex items-center justify-between border-b border-slate-800 sticky top-0 z-40 shrink-0">
+            <div className="md:hidden bg-slate-900 text-white p-3.5 flex items-center justify-between border-b border-slate-800 sticky top-0 z-30 shrink-0 w-full">
                 <div className="flex items-center space-x-3">
                     <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-bold text-sm shadow-md shadow-blue-500/30">
                         POS
@@ -45,13 +45,13 @@ const UserSidebar = ({ activeTab, setActiveTab, onLogout }) => {
 
             {/* Sidebar Drawer Container */}
             <aside className={`
-                fixed md:relative inset-y-0 left-0 z-50 h-full w-64 shrink-0 bg-slate-900 text-white flex flex-col justify-between p-4 shadow-xl transition-transform duration-300 ease-in-out
+                fixed md:static inset-y-0 left-0 z-50 h-full w-64 shrink-0 bg-slate-900 text-white flex flex-col justify-between p-4 shadow-xl transition-transform duration-300 ease-in-out
                 ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
             `}>
                 <div className="flex flex-col h-full justify-between">
                     <div>
                         {/* Brand Header */}
-                        <div className="flex items-center space-x-3 px-2 py-4 mb-6 border-b border-slate-800">
+                        <div className="hidden md:flex items-center space-x-3 px-2 py-4 mb-6 border-b border-slate-800">
                             <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center font-bold text-lg shadow-lg shadow-blue-500/30 shrink-0">
                                 POS
                             </div>
@@ -62,7 +62,7 @@ const UserSidebar = ({ activeTab, setActiveTab, onLogout }) => {
                         </div>
 
                         {/* Navigation Links */}
-                        <nav className="space-y-2">
+                        <nav className="space-y-2 pt-4 md:pt-0">
                             <button
                                 onClick={() => handleTabClick('pos')}
                                 className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition ${

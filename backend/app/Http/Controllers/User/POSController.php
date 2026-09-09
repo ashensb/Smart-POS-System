@@ -17,18 +17,25 @@ class POSController extends Controller
      */
     public function getPOSData()
     {
-        $categories = Category::all();
-        
-        // Database Column Name: stock_quantity
-        $products = Product::with('category')
-            ->where('stock_quantity', '>', 0)
-            ->latest()
-            ->get();
+        try {
+            $categories = Category::select('id', 'name')->get();
+            
+            $products = Product::with('category:id,name')
+                ->where('stock_quantity', '>', 0)
+                ->latest()
+                ->get();
 
-        return response()->json([
-            'categories' => $categories,
-            'products'   => $products
-        ]);
+            return response()->json([
+                'success'    => true,
+                'categories' => $categories,
+                'products'   => $products
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to fetch POS data: ' . $e->getMessage()
+            ], 500);
+        }
     }
 
     /**
@@ -67,7 +74,7 @@ class POSController extends Controller
                 if ($product->stock_quantity < $item['qty']) {
                     DB::rollBack();
                     return response()->json([
-                        'message' => "Insufficient stock for: {$product->name}"
+                        'message' => "Insufficient stock for product: {$product->name}"
                     ], 400);
                 }
 
@@ -79,7 +86,6 @@ class POSController extends Controller
                     'total'      => $item['qty'] * $item['price'],
                 ]);
 
-                // Deduct Stock Quantity
                 $product->decrement('stock_quantity', $item['qty']);
             }
 

@@ -20,15 +20,15 @@ const UserLayout = () => {
 
     return (
         <div className="flex flex-col md:flex-row h-screen w-screen bg-slate-100 font-sans overflow-hidden">
-            {/* Professional Cashier Sidebar */}
+            {/* Sidebar Component */}
             <UserSidebar 
                 activeTab={activeTab} 
                 setActiveTab={setActiveTab} 
                 onLogout={handleLogout} 
             />
 
-            {/* Main Content Area */}
-            <main className="flex-1 h-full min-w-0 overflow-y-auto">
+            {/* Main Content View Container */}
+            <main className="flex-1 flex flex-col h-full min-w-0 overflow-hidden relative">
                 {activeTab === 'pos' && <POS />}
             </main>
         </div>
