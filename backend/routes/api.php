@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\User\POSController;
 use App\Http\Controllers\User\PaymentController;
 
+
 // Public Auth Route
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -54,6 +55,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::middleware('role:cashier,admin')->prefix('user')->group(function () {
         Route::get('/pos/products', [POSController::class, 'getProducts']);
         Route::post('/payment', [PaymentController::class, 'processPayment']);
+
+        Route::get('/pos/data', [POSController::class, 'getPOSData']);
+        Route::post('/pos/checkout', [POSController::class, 'checkout']);
     });
 
 });

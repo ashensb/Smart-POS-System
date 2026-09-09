@@ -30,3 +30,12 @@ export const getCurrentUser = () => {
     const user = localStorage.getItem('user');
     return user ? JSON.parse(user) : null;
 };
+
+// Default export 
+export default { 
+    login: loginUser, 
+    loginUser, 
+    logout, 
+    logoutUser, 
+    getCurrentUser 
+};

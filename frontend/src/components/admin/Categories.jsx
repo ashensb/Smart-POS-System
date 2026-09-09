@@ -83,16 +83,16 @@ const Categories = () => {
     );
 
     return (
-        <div className="p-6 bg-slate-50 min-h-screen">
+        <div className="p-3 sm:p-6 bg-slate-50 min-h-screen">
             {/* Header Section */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                 <div>
-                    <h1 className="text-2xl font-bold text-slate-800">Category Management</h1>
-                    <p className="text-sm text-slate-500">Organize and structure your product categories</p>
+                    <h1 className="text-xl sm:text-2xl font-bold text-slate-800">Category Management</h1>
+                    <p className="text-xs sm:text-sm text-slate-500">Organize and structure your product categories</p>
                 </div>
                 <button
                     onClick={() => openModal()}
-                    className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2.5 rounded-lg shadow-sm transition duration-200 flex items-center gap-2"
+                    className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2.5 rounded-lg shadow-sm transition duration-200 flex items-center justify-center gap-2 text-sm"
                 >
                     <Plus size={18} />
                     <span>Add Category</span>
@@ -102,8 +102,8 @@ const Categories = () => {
             {/* Main Content Card */}
             <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
                 {/* Search / Filter Bar */}
-                <div className="p-4 border-b border-slate-100 bg-slate-50/50 flex items-center justify-between">
-                    <div className="relative w-full max-w-xs">
+                <div className="p-4 border-b border-slate-100 bg-slate-50/50 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+                    <div className="relative w-full sm:max-w-xs">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
                         <input
                             type="text"
@@ -113,57 +113,57 @@ const Categories = () => {
                             className="w-full pl-9 pr-4 py-2 bg-white border border-slate-200 rounded-lg text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition"
                         />
                     </div>
-                    <span className="text-xs font-semibold text-slate-500 bg-slate-100 px-3 py-1.5 rounded-md">
+                    <span className="text-xs font-semibold text-slate-500 bg-slate-100 px-3 py-1.5 rounded-md self-start sm:self-auto">
                         Total: {filteredCategories.length} Categories
                     </span>
                 </div>
 
-                {/* Table */}
+                {/* Table with Horizontal Scroll support */}
                 <div className="overflow-x-auto">
-                    <table className="w-full text-left border-collapse">
+                    <table className="w-full min-w-[500px] text-left border-collapse">
                         <thead>
                             <tr className="bg-slate-100/70 border-b border-slate-200 text-xs font-semibold text-slate-600 uppercase tracking-wider">
-                                <th className="p-4 w-20">ID</th>
-                                <th className="p-4">Category Name</th>
-                                <th className="p-4">Description</th>
-                                <th className="p-4 text-center w-36">Actions</th>
+                                <th className="p-3 sm:p-4 w-16 sm:w-20">ID</th>
+                                <th className="p-3 sm:p-4">Category Name</th>
+                                <th className="p-3 sm:p-4">Description</th>
+                                <th className="p-3 sm:p-4 text-center w-32 sm:w-36">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-100 text-sm">
                             {filteredCategories.length > 0 ? (
                                 filteredCategories.map((cat) => (
                                     <tr key={cat.id} className="hover:bg-slate-50/80 transition duration-150">
-                                        <td className="p-4 font-mono text-slate-500 text-xs">#{cat.id}</td>
-                                        <td className="p-4">
+                                        <td className="p-3 sm:p-4 font-mono text-slate-500 text-xs">#{cat.id}</td>
+                                        <td className="p-3 sm:p-4">
                                             <div className="flex items-center gap-2">
-                                                <span className="p-2 bg-blue-50 text-blue-600 rounded-lg">
+                                                <span className="p-1.5 sm:p-2 bg-blue-50 text-blue-600 rounded-lg">
                                                     <Layers size={16} />
                                                 </span>
-                                                <span className="font-semibold text-slate-800">{cat.name}</span>
+                                                <span className="font-semibold text-slate-800 text-xs sm:text-sm">{cat.name}</span>
                                             </div>
                                         </td>
-                                        <td className="p-4 text-slate-600 max-w-md truncate">
+                                        <td className="p-3 sm:p-4 text-slate-600 max-w-[150px] sm:max-w-md truncate text-xs sm:text-sm">
                                             {cat.description ? (
                                                 cat.description
                                             ) : (
                                                 <span className="text-slate-400 italic text-xs">No description provided</span>
                                             )}
                                         </td>
-                                        <td className="p-4 text-center">
-                                            <div className="flex justify-center gap-2">
+                                        <td className="p-3 sm:p-4 text-center">
+                                            <div className="flex justify-center gap-1.5">
                                                 <button
                                                     onClick={() => openModal(cat)}
-                                                    className="px-3 py-1.5 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 text-xs font-medium transition flex items-center gap-1"
+                                                    className="p-1.5 sm:px-3 sm:py-1.5 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 text-xs font-medium transition flex items-center gap-1"
                                                 >
                                                     <Edit2 size={13} />
-                                                    Edit
+                                                    <span className="hidden sm:inline">Edit</span>
                                                 </button>
                                                 <button
                                                     onClick={() => handleDelete(cat.id)}
-                                                    className="px-3 py-1.5 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 text-xs font-medium transition flex items-center gap-1"
+                                                    className="p-1.5 sm:px-3 sm:py-1.5 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 text-xs font-medium transition flex items-center gap-1"
                                                 >
                                                     <Trash2 size={13} />
-                                                    Delete
+                                                    <span className="hidden sm:inline">Delete</span>
                                                 </button>
                                             </div>
                                         </td>
@@ -171,9 +171,9 @@ const Categories = () => {
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan="4" className="p-12 text-center text-slate-400">
+                                    <td colSpan="4" className="p-8 sm:p-12 text-center text-slate-400">
                                         <FolderPlus className="mx-auto mb-2 opacity-50" size={32} />
-                                        <p className="font-medium">No categories found.</p>
+                                        <p className="font-medium text-sm">No categories found.</p>
                                     </td>
                                 </tr>
                             )}
@@ -182,12 +182,12 @@ const Categories = () => {
                 </div>
             </div>
 
-            {/* Modal Popup */}
+            {/* Responsive Modal Popup */}
             {isModalOpen && (
                 <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-                    <div className="bg-white rounded-2xl shadow-xl w-full max-w-md border border-slate-100 overflow-hidden">
-                        <div className="px-6 py-4 bg-slate-50 border-b border-slate-200 flex justify-between items-center">
-                            <h3 className="font-bold text-slate-800">
+                    <div className="bg-white rounded-2xl shadow-xl w-full max-w-md border border-slate-100 overflow-hidden mx-2">
+                        <div className="px-5 py-4 bg-slate-50 border-b border-slate-200 flex justify-between items-center">
+                            <h3 className="font-bold text-slate-800 text-sm sm:text-base">
                                 {editingId ? 'Edit Category' : 'Add New Category'}
                             </h3>
                             <button
@@ -198,7 +198,7 @@ const Categories = () => {
                             </button>
                         </div>
 
-                        <form onSubmit={handleSubmit} className="p-6 space-y-4">
+                        <form onSubmit={handleSubmit} className="p-5 space-y-4">
                             <div>
                                 <label className="block text-xs font-semibold text-slate-600 mb-1">Category Name *</label>
                                 <input
