@@ -107,4 +107,16 @@ class POSController extends Controller
             ], 500);
         }
     }
+
+    public function getRecentSales()
+   {
+    // Logged in user ge recent sales 20 return kirima (with items & products for receipt)
+    $sales = Sale::with(['items.product'])
+        ->where('user_id', auth()->id())
+        ->latest()
+        ->take(20)
+        ->get();
+
+    return response()->json(['sales' => $sales]);   
+   }
 }

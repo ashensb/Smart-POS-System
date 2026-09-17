@@ -33,6 +33,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // POS Direct Routes (React frontend base URL matching: /api/pos/data)
     Route::get('/pos/data', [POSController::class, 'getPOSData']);
     Route::post('/pos/checkout', [POSController::class, 'checkout']);
+    Route::get('/pos/recent-sales', [POSController::class, 'getRecentSales']);
 
     // Admin Routes
     Route::middleware('role:admin')->prefix('admin')->group(function () {
